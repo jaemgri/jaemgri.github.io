@@ -1,10 +1,227 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My First Website</title>
-  </head>
-  <body>
-    <h1>Hello, I'm learning to code!</h1>
-    <p>This is my GitHub page.</p>
-  </body>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>James Grigson · Rails developer in Tokyo</title>
+<meta name="description" content="James Grigson is a full-stack Rails developer in Tokyo building AI-powered apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F7F8;
+    --surface: #FFFFFF;
+    --ink: #17202A;
+    --muted: #5A6470;
+    --rule: #D8DCE1;
+    --kana: #E3E6EA;
+    /* Tokyo Metro line colours, one per project */
+    --ginza: #F39700;
+    --hanzomon: #8F76D6;
+    --chiyoda: #00A878;
+    --focus: #2F6FEB;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1A2027; --surface: #222A33; --ink: #ECEFF2;
+      --muted: #A3ACB7; --rule: #36404B; --kana: #262E37; --focus: #7AA5FF;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1A2027; --surface: #222A33; --ink: #ECEFF2;
+    --muted: #A3ACB7; --rule: #36404B; --kana: #262E37; --focus: #7AA5FF;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 64rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* Hero */
+  .hero { position: relative; padding: 7rem 0 5rem; overflow: hidden; }
+  .kana {
+    position: absolute; top: 2.5rem; right: 0;
+    writing-mode: vertical-rl;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 900; line-height: 1; letter-spacing: 0.05em;
+    color: var(--kana); margin: 0;
+    user-select: none; z-index: 0;
+  }
+  .hero > *:not(.kana) { position: relative; z-index: 1; }
+  h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900; line-height: 0.95; letter-spacing: -0.03em;
+    margin: 0 0 1.75rem; max-width: 9ch;
+  }
+  .lede { font-size: 1.3rem; line-height: 1.55; max-width: 34rem; margin: 0 0 2rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.75rem; margin: 0; padding: 0; list-style: none; font-weight: 500; }
+
+  /* Sections */
+  section { padding: 4rem 0; border-top: 1px solid var(--rule); }
+  h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 2.5rem; }
+
+  /* Projects */
+  .project { padding: 2.5rem 0; }
+  .project + .project { border-top: 1px solid var(--rule); }
+  .project-head { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .badge {
+    flex: none; width: 3rem; height: 3rem; border-radius: 50%;
+    border: 6px solid var(--line); background: var(--surface);
+    display: grid; place-items: center;
+    font-weight: 900; font-size: 1.15rem; line-height: 1;
+  }
+  h3 { font-size: 2rem; font-weight: 900; letter-spacing: -0.02em; margin: 0; line-height: 1.1; }
+  .tag { font-size: 0.9rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 0.15rem 0.75rem; }
+  .project p { max-width: 38rem; margin: 0 0 1.5rem; }
+  .stack { color: var(--muted); font-size: 0.95rem; }
+
+  /* The user flow drawn as a metro line */
+  .route {
+    list-style: none; margin: 0 0 1.75rem; padding: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    max-width: 44rem;
+  }
+  .route li { position: relative; padding: 2rem 1rem 0 0; font-weight: 500; font-size: 0.98rem; line-height: 1.4; }
+  .route li::before {
+    content: ""; position: absolute; top: 0; left: 0; z-index: 1;
+    width: 1.25rem; height: 1.25rem; border-radius: 50%;
+    border: 4px solid var(--line); background: var(--paper);
+  }
+  .route li::after {
+    content: ""; position: absolute; top: 0.45rem; left: 1rem; right: 0;
+    height: 0.35rem; background: var(--line);
+  }
+  .route li:last-child::after { display: none; }
+  .route li:not(:last-child) { }
+
+  /* Background timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; max-width: 44rem; }
+  .timeline li { display: grid; grid-template-columns: 8rem 1fr; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .timeline li:last-child { border-bottom: none; }
+  .when { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .what strong { font-weight: 700; display: block; }
+  .what span { color: var(--muted); }
+
+  .langs { margin: 2.5rem 0 0; max-width: 38rem; }
+
+  /* Contact */
+  .contact p { font-size: 1.3rem; max-width: 32rem; margin: 0 0 1.5rem; }
+  footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 4rem 0 3.5rem; }
+    .kana { font-size: 3rem; top: 1.5rem; right: -0.25rem; }
+    .lede { font-size: 1.15rem; padding-right: 3rem; }
+    .route { grid-template-columns: 1fr; }
+    .route li { padding: 0 0 1.4rem 2.25rem; }
+    .route li::after { top: 1rem; left: 0.45rem; right: auto; bottom: -0.1rem; width: 0.35rem; height: auto; }
+    .timeline li { grid-template-columns: 1fr; gap: 0.15rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap hero">
+  <p class="kana" lang="ja" aria-hidden="true">ジェームズ・グリグソン</p>
+  <h1>James Grigson</h1>
+  <p class="lede">Full-stack Rails developer in Tokyo. I build apps that take something you upload and do something useful with it: read a bill in another language, put a shirt on you before you buy it, or turn what you're watching into Japanese practice.</p>
+  <ul class="links">
+    <li><a href="https://github.com/jaemgri">GitHub</a></li>
+    <!-- TODO: replace with your LinkedIn URL -->
+    <li><a href="https://www.linkedin.com/in/james-grigson-3315271b1/">LinkedIn</a></li>
+    <!-- TODO: replace with your email -->
+    <li><a href="jamesgrigson15@gmail.com">Email</a></li>
+  </ul>
+</header>
+
+<main>
+  <section class="wrap" id="projects" aria-labelledby="projects-title">
+    <h2 id="projects-title">Projects</h2>
+
+    <article class="project" style="--line: var(--ginza)">
+      <div class="project-head">
+        <span class="badge" aria-hidden="true">B</span>
+        <h3>billy</h3>
+        <span class="tag">Team project</span>
+      </div>
+      <p>A bill tracker for people living somewhere they can't read the receipts. Scan a bill in any language, and AI pulls out the details and translates them. Then send it to friends and split it.</p>
+      <ol class="route" aria-label="How billy works">
+        <li>Scan a bill in any language</li>
+        <li>AI reads and translates it</li>
+        <li>Split it with friends</li>
+      </ol>
+      <p class="stack">Ruby on Rails, AI image reading and translation</p>
+      <a href="https://github.com/jaemgri/billy">View the code on GitHub</a>
+    </article>
+
+    <article class="project" style="--line: var(--hanzomon)">
+      <div class="project-head">
+        <span class="badge" aria-hidden="true">F</span>
+        <h3>fit-check</h3>
+      </div>
+      <p>Virtual try-on. Upload a photo of yourself once, then add a photo of any shirt or pants and AI shows you what it looks like on you.</p>
+      <ol class="route" aria-label="How fit-check works">
+        <li>Upload a photo of yourself</li>
+        <li>Add a shirt or pants</li>
+        <li>See it on you</li>
+      </ol>
+      <p class="stack">Ruby on Rails, AI image generation</p>
+      <a href="https://github.com/jaemgri/fit-check">View the code on GitHub</a>
+    </article>
+
+    <article class="project" style="--line: var(--chiyoda)">
+      <div class="project-head">
+        <span class="badge" aria-hidden="true">S</span>
+        <h3>Somani</h3>
+        <span class="tag">Team project</span>
+      </div>
+      <p>A study app for JLPT N2 learners that turns the media you consume into roleplay adventures. I built the background job that scans uploaded media and maps each word to its JLPT level, and the logic that generates an adventure from the words you save.</p>
+      <ol class="route" aria-label="How Somani works">
+        <li>Upload something you watched or read</li>
+        <li>Save the words you want to learn</li>
+        <li>Play an adventure built from them</li>
+      </ol>
+      <p class="stack">Ruby on Rails, background jobs, AI text analysis</p>
+      <a href="https://github.com/cassandrasantoso/somani">View the code on GitHub</a>
+    </article>
+  </section>
+
+  <section class="wrap" id="background" aria-labelledby="background-title">
+    <h2 id="background-title">Background</h2>
+    <ol class="timeline" reversed>
+      <li><span class="when">2026–2027</span><span class="what"><strong>Master of Software Engineering</strong><span>Waseda University, in progress</span></span></li>
+      <li><span class="when">2026</span><span class="what"><strong>AI Software Development bootcamp</strong><span>Le Wagon Tokyo</span></span></li>
+      <li><span class="when">2024–2025</span><span class="what"><strong>Data Analyst</strong><span>Commonwealth Bank of Australia. SQL querying and data quality.</span></span></li>
+      <li><span class="when">2021–2025</span><span class="what"><strong>Bachelor of Commerce, Data Science and Business Analytics</strong><span>University of Western Australia, First Class Honours</span></span></li>
+      <li><span class="when">2019–2023</span><span class="what"><strong>Head of Sales and HR</strong><span>AIESEC Australia</span></span></li>
+    </ol>
+    <p class="langs">I speak English natively and I'm studying for JLPT N2 in Japanese. I also design my own interfaces in Figma.</p>
+  </section>
+
+  <section class="wrap contact" id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title">Get in touch</h2>
+    <p>I'm looking for Rails and full-stack roles in Tokyo, and I'm open to freelance work.</p>
+    <!-- TODO: replace with your email -->
+    <a href="mailto:you@example.com">you@example.com</a>
+  </section>
+</main>
+
+<footer class="wrap">James Grigson, Tokyo, 2026</footer>
+
+</body>
 </html>
